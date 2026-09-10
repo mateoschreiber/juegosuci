@@ -5,11 +5,9 @@ interface Props {
   lastUpdated: string;
   editionLabel: string;
   isDemo: boolean;
-  regulationYear: number;
-  regulationStatus: "provisional" | "official";
 }
 
-const { lastUpdated, editionLabel, isDemo, regulationYear, regulationStatus } = Astro.props;
+const { lastUpdated, editionLabel, isDemo } = Astro.props;
 const updatedLabel = new Intl.DateTimeFormat("es-PY", {
   dateStyle: "short",
   timeStyle: "short",
@@ -20,25 +18,15 @@ const updatedLabel = new Intl.DateTimeFormat("es-PY", {
 <header class="event-header">
   <div class="event-header__topline">
     <a class="brand" href="/" aria-label={`${site.name}, inicio`}>
-      <span class="brand__mark" aria-hidden="true">U</span>
+      <span class="brand__mark" aria-hidden="true">UCI</span>
       <span>{site.name}</span>
     </a>
     <span class="event-header__edition">{editionLabel}</span>
   </div>
-  <div class="event-header__content">
-    <div>
-      <p class="eyebrow">Resultados generales</p>
-      <h1>{site.name}</h1>
-      <p class="event-header__dates">Clasificación por disciplinas, ramas y modalidades.</p>
-    </div>
-    <p class="last-updated">
-      <span class="last-updated__dot" aria-hidden="true"></span>
-      <span>Última actualización</span>
-      <time datetime={lastUpdated}>{updatedLabel}</time>
-    </p>
-  </div>
-  <p class:list={["regulation-notice", regulationStatus === "provisional" && "regulation-notice--provisional"]}>
-    Reglamento base {regulationYear} {regulationStatus === "provisional" ? "· pendiente de confirmación para esta edición" : "· vigente"}
-    {isDemo && " · datos de demostración"}
+  <p class="last-updated">
+    <span class="last-updated__dot" aria-hidden="true"></span>
+    <span>Actualizado</span>
+    <time datetime={lastUpdated}>{updatedLabel}</time>
+    {isDemo && <span class="demo-label">Datos de referencia</span>}
   </p>
 </header>

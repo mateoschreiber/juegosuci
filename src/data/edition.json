@@ -21,12 +21,12 @@
     ]
   },
   "faculties": [
-    { "id": "ingenieria", "name": "Facultad de Ingeniería", "abbreviation": "FI", "color": "#2563EB" },
-    { "id": "medicina", "name": "Facultad de Ciencias Médicas", "abbreviation": "FCM", "color": "#0F766E" },
-    { "id": "derecho", "name": "Facultad de Derecho y Ciencias Sociales", "abbreviation": "FDCS", "color": "#B45309" },
-    { "id": "economia", "name": "Facultad de Ciencias Económicas", "abbreviation": "FCE", "color": "#7C3AED" },
-    { "id": "arquitectura", "name": "Facultad de Arquitectura", "abbreviation": "FA", "color": "#DB2777" },
-    { "id": "politecnica", "name": "Facultad Politécnica", "abbreviation": "FP", "color": "#0891B2" }
+    { "id": "ingenieria", "name": "Ciencias y Tecnología", "abbreviation": "CT", "color": "#2563EB" },
+    { "id": "medicina", "name": "Ciencias de la Salud", "abbreviation": "CS", "color": "#0F766E" },
+    { "id": "derecho", "name": "Ciencias Jurídicas", "abbreviation": "CJ", "color": "#B45309" },
+    { "id": "economia", "name": "Ciencias Económicas", "abbreviation": "CE", "color": "#7C3AED" },
+    { "id": "arquitectura", "name": "Filosofía y Ciencias Humanas", "abbreviation": "FCH", "color": "#DB2777" },
+    { "id": "politecnica", "name": "Unidad Pedagógica Hohenau", "abbreviation": "UPH", "color": "#0891B2" }
   ],
   "scoringProfiles": [
     { "id": "caravana", "label": "Caravana", "awards": { "1": 50, "2": 35, "3": 25 }, "participation": 15, "tieAwards": { "1": 45, "2": 25, "3": 15 } },
