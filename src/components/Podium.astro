@@ -1,0 +1,32 @@
+---
+import TeamBadge from "./TeamBadge.astro";
+import type { RankedTeam } from "../types/games";
+
+interface Props {
+  ranking: RankedTeam[];
+}
+
+const { ranking } = Astro.props;
+const podium = ranking.slice(0, 3);
+const shouldShow = podium.length >= 3 && podium.some((entry) => entry.points > 0);
+---
+
+{
+  shouldShow && (
+    <section class="podium" aria-labelledby="podium-title">
+      <div class="section-heading section-heading--compact">
+        <p class="eyebrow">Al frente</p>
+        <h3 id="podium-title">Podio provisional</h3>
+      </div>
+      <ol class="podium__list">
+        {podium.map((entry) => (
+          <li class:list={["podium__item", entry.position === 1 && "podium__item--first"]}>
+            <span class="podium__position">{entry.position}°</span>
+            <TeamBadge team={entry.team} />
+            <strong>{entry.points}<span class="sr-only"> puntos</span></strong>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )
+}

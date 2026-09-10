@@ -1,0 +1,38 @@
+---
+import TeamBadge from "./TeamBadge.astro";
+import type { RankedTeam } from "../types/games";
+
+interface Props {
+  ranking: RankedTeam[];
+  caption: string;
+}
+
+const { ranking, caption } = Astro.props;
+---
+
+<div class="ranking-table-wrap">
+  <table class="ranking-table">
+    <caption>{caption}</caption>
+    <thead>
+      <tr>
+        <th scope="col" class="ranking-table__position">Pos.</th>
+        <th scope="col">Facultad</th>
+        <th scope="col" class="ranking-table__points">Puntos</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        ranking.map((entry) => (
+          <tr class:list={["ranking-table__row", entry.position <= 3 && "ranking-table__row--top"]}>
+            <th scope="row" class="ranking-table__position">
+              <span>{entry.position}°</span>
+              {entry.isTied && <span class="sr-only">, empate</span>}
+            </th>
+            <td><TeamBadge team={entry.team} /></td>
+            <td class="ranking-table__points">{entry.points}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>

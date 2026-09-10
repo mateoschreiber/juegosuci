@@ -1,0 +1,36 @@
+---
+import { site } from "../config/site";
+
+interface Props {
+  lastUpdated: string;
+}
+
+const { lastUpdated } = Astro.props;
+const updatedLabel = new Intl.DateTimeFormat("es-PY", {
+  dateStyle: "short",
+  timeStyle: "short",
+  timeZone: "America/Asuncion",
+}).format(new Date(lastUpdated));
+---
+
+<header class="event-header">
+  <div class="event-header__topline">
+    <a class="brand" href="/" aria-label={`${site.name}, inicio`}>
+      <span class="brand__mark" aria-hidden="true">U</span>
+      <span>{site.name}</span>
+    </a>
+    <span class="event-header__edition">{site.edition}</span>
+  </div>
+  <div class="event-header__content">
+    <div>
+      <p class="eyebrow">Clasificación oficial</p>
+      <h1>{site.name}</h1>
+      <p class="event-header__dates">{site.dates}</p>
+    </div>
+    <p class="last-updated">
+      <span class="last-updated__dot" aria-hidden="true"></span>
+      <span>Última actualización</span>
+      <time datetime={lastUpdated}>{updatedLabel}</time>
+    </p>
+  </div>
+</header>

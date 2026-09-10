@@ -1,0 +1,21 @@
+---
+import type { Team } from "../types/games";
+
+interface Props {
+  team: Team;
+}
+
+const { team } = Astro.props;
+---
+
+<span class="team-badge" style={`--team-color: ${team.color}`}>
+  {
+    team.logo ? (
+      <img class="team-badge__logo" src={team.logo} alt="" width="32" height="32" />
+    ) : (
+      <span class="team-badge__mark" aria-hidden="true">{team.abbreviation.slice(0, 2)}</span>
+    )
+  }
+  <span class="team-badge__name" title={team.name}>{team.name}</span>
+  <span class="team-badge__abbr" aria-hidden="true">{team.abbreviation}</span>
+</span>

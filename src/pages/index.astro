@@ -1,0 +1,37 @@
+---
+import CategoryNavigation from "../components/CategoryNavigation.astro";
+import EventHeader from "../components/EventHeader.astro";
+import Podium from "../components/Podium.astro";
+import RankingTable from "../components/RankingTable.astro";
+import { site } from "../config/site";
+import gamesJson from "../data/games.json";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { createOverallRanking } from "../lib/ranking";
+import type { GamesData } from "../types/games";
+
+const games = gamesJson as GamesData;
+const overallRanking = createOverallRanking(games);
+---
+
+<BaseLayout>
+  <main class="site-shell">
+    <EventHeader lastUpdated={games.lastUpdated} />
+
+    <section class="overall" id="clasificacion-general" aria-labelledby="overall-title">
+      <div class="section-heading">
+        <p class="eyebrow">Tabla principal</p>
+        <h2 id="overall-title">Clasificación general</h2>
+      </div>
+      <Podium ranking={overallRanking} />
+      <RankingTable ranking={overallRanking} caption="Clasificación general de los Juegos UCI" />
+      <p class="ranking-note">Los puntos generales se calculan sumando los puntajes publicados por deporte.</p>
+    </section>
+
+    <CategoryNavigation categories={games.categories} teams={games.teams} />
+  </main>
+
+  <footer class="site-footer">
+    <p>{site.footerText}</p>
+    <a href="#clasificacion-general">Volver a la clasificación general</a>
+  </footer>
+</BaseLayout>
