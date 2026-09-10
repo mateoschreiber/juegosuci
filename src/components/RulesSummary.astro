@@ -1,0 +1,31 @@
+---
+import type { EditionData } from "../types/edition";
+
+interface Props {
+  edition: EditionData;
+}
+
+const { edition } = Astro.props;
+---
+
+<section class="rules-summary" aria-labelledby="rules-title">
+  <div class="section-heading">
+    <p class="eyebrow">Referencia</p>
+    <h2 id="rules-title">Cómo se asignan los puntos</h2>
+  </div>
+  <p class="rules-summary__intro">{edition.regulation.sourceLabel}. Los perfiles se aplican automáticamente al publicar posiciones oficiales.</p>
+  <div class="rules-summary__list">
+    {
+      edition.scoringProfiles.filter((profile) => profile.id !== "reina").map((profile) => (
+        <details>
+          <summary>{profile.label}</summary>
+          <p>
+            1.º {profile.awards["1"]} · 2.º {profile.awards["2"]} · 3.º {profile.awards["3"]} · participación {profile.participation}
+          </p>
+          {profile.tieAwards && <p>Empates superiores: 1.º {profile.tieAwards["1"]} · 2.º {profile.tieAwards["2"]} · 3.º {profile.tieAwards["3"]}</p>}
+        </details>
+      ))
+    }
+  </div>
+  <p class="rules-summary__note">En empate general durante los Juegos se muestra posición compartida. El orden reglamentario se aplica al finalizar la edición.</p>
+</section>

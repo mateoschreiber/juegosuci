@@ -1,6 +1,6 @@
 # Juegos UCI
 
-Sitio estático para publicar la clasificación de los Juegos UCI. Los resultados no se editan en componentes: Git es la fuente de verdad y Cloudflare Pages publica cada push a `main`.
+Sitio estático de resultados para los Juegos UCI. Git es la fuente de verdad: los puntos generales se calculan desde posiciones oficiales, perfiles de puntuación y ajustes reglamentarios; nunca se escriben manualmente en componentes.
 
 ## Requisitos y comandos
 
@@ -15,34 +15,49 @@ npm run build
 npm run preview
 ```
 
-`npm run check` valida los datos, revisa Astro y genera el build. No publiques cambios de resultados sin ejecutarlo.
+`npm run check` valida los datos, ejecuta las pruebas de puntuación, revisa Astro y genera el build. Úsalo antes de cada publicación.
 
-## Actualizar resultados
+## Archivo operativo
 
-1. Abre `src/data/games.json`.
-2. Cambia puntajes dentro de `categories[].scores` y, si aplica, los resultados en `categories[].results`.
-3. Actualiza `lastUpdated` con fecha ISO 8601 y zona horaria, por ejemplo `2026-09-10T18:42:00-03:00`.
-4. Ejecuta `npm run check`, revisa con `npm run dev`, realiza commit y push a `main`.
+La edición completa vive en `src/data/edition.json`.
 
-Los puntos generales se calculan automáticamente como la suma de los puntos de cada categoría. No existe un campo de total general para editar.
+- `edition`: año, estado, indicador de demostración y fecha ISO con zona horaria.
+- `regulation`: versión de reglamento y desempates generales.
+- `faculties`: participantes confirmados, abreviaturas, colores y logos locales opcionales.
+- `scoringProfiles`: puntos por posición, participación y empate.
+- `groups`: disciplinas, ramas, modalidades y posiciones oficiales.
+- `adjustments`: descuentos oficiales; deben ser negativos, tener motivo y referencia reglamentaria.
 
-## Administración habitual
+Para publicar un resultado, actualiza las `placements` de la disciplina, marca su estado como `official` y actualiza `edition.lastUpdated`. El sistema asigna los puntos mediante `profileId`.
 
-- Facultades, abreviaturas y colores: `src/data/games.json` → `teams`.
-- Deportes, estados, puntajes y resultados: `src/data/games.json` → `categories`.
-- Logo opcional de una facultad: agrega el archivo a `public/assets/teams/` y usa su ruta `/assets/teams/archivo.svg` en `teams[].logo`.
-- Nombre del evento, edición, fechas, URL y metadatos: `src/config/site.ts`.
+En Atletismo, carga posiciones en cada `athleticsEvents[]`. Solo cuando la disciplina finalice, marca Atletismo como `official` y completa `finalPlacements`; ese paso publica su premio general.
+
+## Nueva edición o reglamento vigente
+
+El contenido actual es una referencia demostrativa basada en el reglamento 2023. Antes de publicar una edición real:
+
+1. Confirma la lista oficial de facultades/unidades.
+2. Reemplaza disciplinas, ramas y modalidades habilitadas.
+3. Actualiza perfiles de puntuación y `generalTieBreakers` según el reglamento vigente.
+4. Cambia `regulation.status` a `official`, `edition.status` a `active` y `edition.isDemo` a `false`.
+
+No cambies `src/lib/ranking.ts` para adaptar un reglamento: los cambios habituales deben vivir en `edition.json`.
+
+## Administración adicional
+
+- Logos: `public/assets/teams/`, referenciados como `/assets/teams/archivo.svg`.
+- Nombre, dominio y metadatos: `src/config/site.ts`.
 - Imagen social y favicon: `public/social/og.png` y `public/favicon.svg`.
 
-El archivo `scripts/validate-games.mjs` bloquea IDs repetidos, referencias inválidas, puntajes incorrectos, colores inválidos, fechas sin zona horaria y logos inexistentes.
+El validador `scripts/validate-edition.mjs` bloquea IDs repetidos, perfiles inexistentes, posiciones inválidas, facultades no registradas, empates mal declarados, ajustes no justificados y cierres de atletismo incompletos.
 
 ## Cloudflare Pages
 
-Conecta el repositorio GitHub desde Cloudflare Pages y configura:
+Conecta el repositorio GitHub y usa:
 
 - Production branch: `main`
 - Build command: `npm run build`
 - Build output directory: `dist`
-- Node.js: usa `.nvmrc` o define `NODE_VERSION=22.16.0`
+- Node.js: `.nvmrc` o `NODE_VERSION=22.16.0`
 
-Después, agrega `juegosuci.jesareko.com` en **Custom domains**. Los pushes a `main` publican producción; las ramas y PR pueden usar Preview Deployments. Para volver atrás, selecciona un deployment de producción anterior en Pages y usa **Rollback**.
+Los pushes a `main` publican producción. Las ramas y PR pueden usar Preview Deployments; para volver atrás, selecciona un deployment de producción anterior y usa **Rollback**.

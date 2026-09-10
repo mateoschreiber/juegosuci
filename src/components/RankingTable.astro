@@ -1,13 +1,15 @@
 ---
 import TeamBadge from "./TeamBadge.astro";
-import type { RankedTeam } from "../types/games";
+import type { AwardedPlacement, RankedFaculty } from "../types/edition";
 
 interface Props {
-  ranking: RankedTeam[];
+  ranking: Array<RankedFaculty | AwardedPlacement>;
   caption: string;
+  showResult?: boolean;
+  showAdjustment?: boolean;
 }
 
-const { ranking, caption } = Astro.props;
+const { ranking, caption, showResult = false, showAdjustment = false } = Astro.props;
 ---
 
 <div class="ranking-table-wrap">
@@ -17,6 +19,8 @@ const { ranking, caption } = Astro.props;
       <tr>
         <th scope="col" class="ranking-table__position">Pos.</th>
         <th scope="col">Facultad</th>
+        {showResult && <th scope="col" class="ranking-table__result">Resultado</th>}
+        {showAdjustment && <th scope="col" class="ranking-table__adjustment">Ajuste</th>}
         <th scope="col" class="ranking-table__points">Puntos</th>
       </tr>
     </thead>
@@ -28,8 +32,10 @@ const { ranking, caption } = Astro.props;
               <span>{entry.position}°</span>
               {entry.isTied && <span class="sr-only">, empate</span>}
             </th>
-            <td><TeamBadge team={entry.team} /></td>
-            <td class="ranking-table__points">{entry.points}</td>
+            <td><TeamBadge team={entry.faculty} /></td>
+            {showResult && <td class="ranking-table__result">{"result" in entry ? entry.result ?? "-" : "-"}</td>}
+            {showAdjustment && <td class:list={["ranking-table__adjustment", "adjustmentPoints" in entry && entry.adjustmentPoints < 0 && "ranking-table__adjustment--negative"]}>{"adjustmentPoints" in entry && entry.adjustmentPoints !== 0 ? entry.adjustmentPoints : "-"}</td>}
+            <td class="ranking-table__points">{"netPoints" in entry ? entry.netPoints : entry.points}</td>
           </tr>
         ))
       }

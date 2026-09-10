@@ -3,9 +3,13 @@ import { site } from "../config/site";
 
 interface Props {
   lastUpdated: string;
+  editionLabel: string;
+  isDemo: boolean;
+  regulationYear: number;
+  regulationStatus: "provisional" | "official";
 }
 
-const { lastUpdated } = Astro.props;
+const { lastUpdated, editionLabel, isDemo, regulationYear, regulationStatus } = Astro.props;
 const updatedLabel = new Intl.DateTimeFormat("es-PY", {
   dateStyle: "short",
   timeStyle: "short",
@@ -19,13 +23,13 @@ const updatedLabel = new Intl.DateTimeFormat("es-PY", {
       <span class="brand__mark" aria-hidden="true">U</span>
       <span>{site.name}</span>
     </a>
-    <span class="event-header__edition">{site.edition}</span>
+    <span class="event-header__edition">{editionLabel}</span>
   </div>
   <div class="event-header__content">
     <div>
-      <p class="eyebrow">Clasificación oficial</p>
+      <p class="eyebrow">Resultados generales</p>
       <h1>{site.name}</h1>
-      <p class="event-header__dates">{site.dates}</p>
+      <p class="event-header__dates">Clasificación por disciplinas, ramas y modalidades.</p>
     </div>
     <p class="last-updated">
       <span class="last-updated__dot" aria-hidden="true"></span>
@@ -33,4 +37,8 @@ const updatedLabel = new Intl.DateTimeFormat("es-PY", {
       <time datetime={lastUpdated}>{updatedLabel}</time>
     </p>
   </div>
+  <p class:list={["regulation-notice", regulationStatus === "provisional" && "regulation-notice--provisional"]}>
+    Reglamento base {regulationYear} {regulationStatus === "provisional" ? "· pendiente de confirmación para esta edición" : "· vigente"}
+    {isDemo && " · datos de demostración"}
+  </p>
 </header>

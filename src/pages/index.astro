@@ -1,33 +1,49 @@
 ---
-import CategoryNavigation from "../components/CategoryNavigation.astro";
+import DisciplineGroups from "../components/DisciplineGroups.astro";
 import EventHeader from "../components/EventHeader.astro";
-import Podium from "../components/Podium.astro";
 import RankingTable from "../components/RankingTable.astro";
+import RulesSummary from "../components/RulesSummary.astro";
 import { site } from "../config/site";
-import gamesJson from "../data/games.json";
+import editionJson from "../data/edition.json";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { createOverallRanking } from "../lib/ranking";
-import type { GamesData } from "../types/games";
+import type { EditionData } from "../types/edition";
 
-const games = gamesJson as GamesData;
-const overallRanking = createOverallRanking(games);
+const edition = editionJson as EditionData;
+const overallRanking = createOverallRanking(edition);
+const leader = overallRanking[0];
 ---
 
 <BaseLayout>
   <main class="site-shell">
-    <EventHeader lastUpdated={games.lastUpdated} />
+    <EventHeader
+      lastUpdated={edition.edition.lastUpdated}
+      editionLabel={edition.edition.label}
+      isDemo={edition.edition.isDemo}
+      regulationYear={edition.regulation.referenceYear}
+      regulationStatus={edition.regulation.status}
+    />
 
     <section class="overall" id="clasificacion-general" aria-labelledby="overall-title">
       <div class="section-heading">
         <p class="eyebrow">Tabla principal</p>
         <h2 id="overall-title">Clasificación general</h2>
       </div>
-      <Podium ranking={overallRanking} />
-      <RankingTable ranking={overallRanking} caption="Clasificación general de los Juegos UCI" />
-      <p class="ranking-note">Los puntos generales se calculan sumando los puntajes publicados por deporte.</p>
+      {leader && <p class="leader-line"><span>Va primero</span><strong>{leader.faculty.name}</strong><b>{leader.netPoints} puntos</b></p>}
+      <RankingTable ranking={overallRanking} caption="Clasificación general de los Juegos UCI" showAdjustment />
+      <p class="ranking-note">Solo se suman resultados oficiales. Los ajustes reglamentarios modifican el total general, no el resultado de cada disciplina.</p>
+      {
+        edition.adjustments.length > 0 && (
+          <details class="adjustments">
+            <summary>Ver ajustes oficiales</summary>
+            <ul>{edition.adjustments.map((adjustment) => <li>{adjustment.reason} · {adjustment.points} puntos · {adjustment.reference}</li>)}</ul>
+          </details>
+        )
+      }
     </section>
 
-    <CategoryNavigation categories={games.categories} teams={games.teams} />
+    <DisciplineGroups edition={edition} />
+    <RulesSummary edition={edition} />
   </main>
 
   <footer class="site-footer">

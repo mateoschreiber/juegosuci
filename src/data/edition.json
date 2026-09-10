@@ -1,0 +1,174 @@
+{
+  "edition": {
+    "year": 2026,
+    "label": "Edición de referencia",
+    "status": "reference",
+    "isDemo": true,
+    "lastUpdated": "2026-09-10T18:42:00-03:00"
+  },
+  "regulation": {
+    "referenceYear": 2023,
+    "status": "provisional",
+    "sourceLabel": "Reglamento Juegos UCI 2023, artículos 81 a 86",
+    "generalTieBreakers": [
+      { "type": "placement_count", "category": "collective", "position": 1 },
+      { "type": "placement_count", "category": "individual", "position": 1 },
+      { "type": "placement_count", "category": "artistic", "position": 1 },
+      { "type": "placement_count", "category": "collective", "position": 2 },
+      { "type": "placement_count", "category": "individual", "position": 2 },
+      { "type": "placement_count", "category": "artistic", "position": 2 },
+      { "type": "opening_points", "sourceDisciplineIds": ["caravana", "reina-uci"] }
+    ]
+  },
+  "faculties": [
+    { "id": "ingenieria", "name": "Facultad de Ingeniería", "abbreviation": "FI", "color": "#2563EB" },
+    { "id": "medicina", "name": "Facultad de Ciencias Médicas", "abbreviation": "FCM", "color": "#0F766E" },
+    { "id": "derecho", "name": "Facultad de Derecho y Ciencias Sociales", "abbreviation": "FDCS", "color": "#B45309" },
+    { "id": "economia", "name": "Facultad de Ciencias Económicas", "abbreviation": "FCE", "color": "#7C3AED" },
+    { "id": "arquitectura", "name": "Facultad de Arquitectura", "abbreviation": "FA", "color": "#DB2777" },
+    { "id": "politecnica", "name": "Facultad Politécnica", "abbreviation": "FP", "color": "#0891B2" }
+  ],
+  "scoringProfiles": [
+    { "id": "caravana", "label": "Caravana", "awards": { "1": 50, "2": 35, "3": 25 }, "participation": 15, "tieAwards": { "1": 45, "2": 25, "3": 15 } },
+    { "id": "major", "label": "Hinchada, Peña y colectivos", "awards": { "1": 100, "2": 70, "3": 50 }, "participation": 20, "tieAwards": { "1": 90, "2": 60, "3": 40 } },
+    { "id": "reina", "label": "Categoría representativa 2023", "awards": { "1": 50, "2": 35, "3": 25 }, "participation": 10 },
+    { "id": "table-tennis", "label": "Tenis de mesa", "awards": { "1": 25, "2": 15, "3": 10 }, "participation": 5 },
+    { "id": "athletics-internal", "label": "Pruebas de atletismo", "awards": { "1": 20, "2": 15, "3": 10 }, "participation": 5 },
+    { "id": "athletics-final", "label": "Clasificación final de atletismo", "awards": { "1": 100, "2": 70, "3": 50 }, "participation": 20 }
+  ],
+  "groups": [
+    {
+      "id": "artistic",
+      "name": "Artísticas",
+      "description": "Caravana, hinchada y Peña Cultural Paraguaya según la referencia 2023.",
+      "disciplines": [
+        {
+          "id": "caravana",
+          "name": "Caravana",
+          "category": "artistic",
+          "status": "official",
+          "profileId": "caravana",
+          "format": "ranked",
+          "placements": [
+            { "facultyId": "ingenieria", "position": 1, "result": "Resultado de demostración" },
+            { "facultyId": "medicina", "position": 2 },
+            { "facultyId": "economia", "position": 3 },
+            { "facultyId": "derecho", "position": 4 },
+            { "facultyId": "arquitectura", "position": 4 },
+            { "facultyId": "politecnica", "position": 4 }
+          ]
+        },
+        { "id": "hinchada", "name": "Duelo de hinchadas", "category": "artistic", "status": "not_started", "profileId": "major", "format": "ranked", "placements": [] },
+        { "id": "pena-canto", "name": "Peña Cultural: Canto", "category": "artistic", "mode": "Canto", "status": "not_started", "profileId": "major", "format": "ranked", "placements": [] },
+        { "id": "pena-danza", "name": "Peña Cultural: Danza", "category": "artistic", "mode": "Danza", "status": "not_started", "profileId": "major", "format": "ranked", "placements": [] },
+        { "id": "reina-uci", "name": "Categoría representativa", "category": "artistic", "status": "disabled", "profileId": "reina", "format": "ranked", "placements": [], "note": "Categoría 2023 pendiente de confirmación y denominación oficial para la siguiente edición." }
+      ]
+    },
+    {
+      "id": "collective",
+      "name": "Colectivas",
+      "description": "Cada rama deportiva otorga una premiación independiente.",
+      "disciplines": [
+        {
+          "id": "futsal-f",
+          "name": "Fútsal FIFA",
+          "category": "collective",
+          "branch": "Femenino",
+          "status": "official",
+          "profileId": "major",
+          "format": "ranked",
+          "placements": [
+            { "facultyId": "medicina", "position": 1, "result": "Final: resultado de demostración" },
+            { "facultyId": "ingenieria", "position": 2 },
+            { "facultyId": "derecho", "position": 3 },
+            { "facultyId": "economia", "position": 4 },
+            { "facultyId": "arquitectura", "position": 4 },
+            { "facultyId": "politecnica", "position": 4 }
+          ]
+        },
+        { "id": "futsal-m", "name": "Fútsal FIFA", "category": "collective", "branch": "Masculino", "status": "not_started", "profileId": "major", "format": "ranked", "placements": [] },
+        { "id": "basquet-f", "name": "Básquetbol", "category": "collective", "branch": "Femenino", "status": "not_started", "profileId": "major", "format": "ranked", "placements": [] },
+        { "id": "basquet-m", "name": "Básquetbol", "category": "collective", "branch": "Masculino", "status": "not_started", "profileId": "major", "format": "ranked", "placements": [] },
+        { "id": "handbol-f", "name": "Hándbol", "category": "collective", "branch": "Femenino", "status": "not_started", "profileId": "major", "format": "ranked", "placements": [] },
+        { "id": "handbol-m", "name": "Hándbol", "category": "collective", "branch": "Masculino", "status": "not_started", "profileId": "major", "format": "ranked", "placements": [] },
+        { "id": "voley-f", "name": "Vóley", "category": "collective", "branch": "Femenino", "status": "not_started", "profileId": "major", "format": "ranked", "placements": [] },
+        { "id": "voley-m", "name": "Vóley", "category": "collective", "branch": "Masculino", "status": "not_started", "profileId": "major", "format": "ranked", "placements": [] },
+        { "id": "futbol-11-m", "name": "Fútbol 11", "category": "collective", "branch": "Masculino", "status": "not_started", "profileId": "major", "format": "ranked", "placements": [] }
+      ]
+    },
+    {
+      "id": "table-tennis",
+      "name": "Tenis de mesa",
+      "description": "Individual y doble, por rama, conforme a la referencia 2023.",
+      "disciplines": [
+        {
+          "id": "tenis-individual-f",
+          "name": "Tenis de mesa",
+          "category": "individual",
+          "branch": "Femenino",
+          "mode": "Individual",
+          "status": "official",
+          "profileId": "table-tennis",
+          "format": "ranked",
+          "placements": [
+            { "facultyId": "economia", "position": 1, "result": "Resultado de demostración" },
+            { "facultyId": "medicina", "position": 2 },
+            { "facultyId": "ingenieria", "position": 3 },
+            { "facultyId": "derecho", "position": 4 },
+            { "facultyId": "arquitectura", "position": 4 },
+            { "facultyId": "politecnica", "position": 4 }
+          ]
+        },
+        { "id": "tenis-individual-m", "name": "Tenis de mesa", "category": "individual", "branch": "Masculino", "mode": "Individual", "status": "not_started", "profileId": "table-tennis", "format": "ranked", "placements": [] },
+        { "id": "tenis-doble-f", "name": "Tenis de mesa", "category": "individual", "branch": "Femenino", "mode": "Doble", "status": "not_started", "profileId": "table-tennis", "format": "ranked", "placements": [] },
+        { "id": "tenis-doble-m", "name": "Tenis de mesa", "category": "individual", "branch": "Masculino", "mode": "Doble", "status": "not_started", "profileId": "table-tennis", "format": "ranked", "placements": [] }
+      ]
+    },
+    {
+      "id": "athletics",
+      "name": "Atletismo",
+      "description": "Las pruebas forman una clasificación interna; el premio general se publica al cierre de atletismo.",
+      "disciplines": [
+        {
+          "id": "atletismo",
+          "name": "Atletismo",
+          "category": "individual",
+          "status": "in_progress",
+          "profileId": "athletics-final",
+          "format": "athletics",
+          "athleticsEvents": [
+            {
+              "id": "100m-f",
+              "name": "100 metros llanos",
+              "branch": "Femenino",
+              "status": "official",
+              "placements": [
+                { "facultyId": "medicina", "position": 1, "result": "13.08 s · demostración" },
+                { "facultyId": "ingenieria", "position": 2, "result": "13.31 s" },
+                { "facultyId": "economia", "position": 3, "result": "13.62 s" },
+                { "facultyId": "derecho", "position": 4 },
+                { "facultyId": "arquitectura", "position": 4 },
+                { "facultyId": "politecnica", "position": 4 }
+              ]
+            },
+            { "id": "100m-m", "name": "100 metros llanos", "branch": "Masculino", "status": "not_started", "placements": [] },
+            { "id": "400m-f", "name": "400 metros llanos", "branch": "Femenino", "status": "not_started", "placements": [] },
+            { "id": "400m-m", "name": "400 metros llanos", "branch": "Masculino", "status": "not_started", "placements": [] },
+            { "id": "posta-f", "name": "Posta 4x100 metros", "branch": "Femenino", "status": "not_started", "placements": [] },
+            { "id": "posta-m", "name": "Posta 4x100 metros", "branch": "Masculino", "status": "not_started", "placements": [] },
+            { "id": "jabalina-f", "name": "Lanzamiento de jabalina", "branch": "Femenino", "status": "not_started", "placements": [] },
+            { "id": "jabalina-m", "name": "Lanzamiento de jabalina", "branch": "Masculino", "status": "not_started", "placements": [] },
+            { "id": "disco-f", "name": "Lanzamiento de disco", "branch": "Femenino", "status": "not_started", "placements": [] },
+            { "id": "disco-m", "name": "Lanzamiento de disco", "branch": "Masculino", "status": "not_started", "placements": [] },
+            { "id": "salto-f", "name": "Salto largo", "branch": "Femenino", "status": "not_started", "placements": [] },
+            { "id": "salto-m", "name": "Salto largo", "branch": "Masculino", "status": "not_started", "placements": [] },
+            { "id": "resistencia-f", "name": "Resistencia 1.500 metros", "branch": "Femenino", "status": "not_started", "placements": [] },
+            { "id": "resistencia-m", "name": "Resistencia 3.000 metros", "branch": "Masculino", "status": "not_started", "placements": [] }
+          ],
+          "finalPlacements": []
+        }
+      ]
+    }
+  ],
+  "adjustments": []
+}

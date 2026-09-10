@@ -7,12 +7,14 @@
     "dev": "astro dev",
     "build": "npm run validate && astro build",
     "preview": "astro preview",
-    "validate": "node scripts/validate-games.mjs",
-    "check": "npm run validate && astro check && astro build"
+    "validate": "node scripts/validate-edition.mjs",
+    "test": "tsx scripts/test-ranking.ts",
+    "check": "npm run validate && npm run test && astro check && astro build"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "astro": "^5.13.7",
+    "tsx": "^4.20.5",
     "typescript": "^5.9.2"
   }
 }
